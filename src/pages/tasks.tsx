@@ -22,11 +22,11 @@ const Tasks = () => {
 
     const { data: postata, loading: postLoading, error: postError, post } = usePost();
 
-    if(loading) {
+    if(loading || postLoading) {
         return <p>Loading...</p>
     }
 
-    if(error) {
+    if(error || postError) {
         return <p>Something gone wrong</p>
     }
 
@@ -37,7 +37,7 @@ const Tasks = () => {
     const handleCloseTask = async (task) => {
         task.status = 'completed';
 
-        const response: any = await post(`http://localhost:8000/api/tasks/${task.id}`, task);
+        const response: any = await post(`${apiUrl}/tasks/${task.id}`, task);
 
         if(response.data){
             refetch();

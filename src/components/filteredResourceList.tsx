@@ -1,19 +1,8 @@
 import { ArrowRight, Search } from 'lucide-react';
 import { useFetch } from '@/hooks/use-fetch';
 import { Badge } from './ui/badge';
+import { IResource } from '@/core/types/interfaces';
 
-interface IResource {
-    data: {
-        id: number;
-        name: string;
-        short_description: string;
-        current_status: string;
-        skills: {
-            id: number;
-            name: string;
-        }[];
-    }[];
-}
 
 const FilteredResourceList = (
     {
@@ -44,7 +33,7 @@ const FilteredResourceList = (
     }
 
     return (
-        <div className="space-y-3 max-h-96 overflow-y-auto">
+        <div className="space-y-3 max-h-60 overflow-y-auto">
             {filteredResources && filteredResources.length > 0 && filteredResources?.map((resource, index) => (
                 <div key={index} className="p-3 rounded-lg border border-border/50 hover:bg-muted/30 transition-colors cursor-pointer">
                     <div className="space-y-2">

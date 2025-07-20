@@ -43,3 +43,16 @@ export interface ISkills {
         name: string;
     }[];
 }
+
+export interface IResource {
+    data: {
+        id: number;
+        name: string;
+        short_description: string;
+        current_status: string;
+        skills: {
+            id: number;
+            name: string;
+        }[];
+    }[];
+}

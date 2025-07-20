@@ -30,6 +30,7 @@ export function useFetch<T = any>(url: string, config?: AxiosRequestConfig) {
     }, [url, config]);
 
     useEffect(() => {
+        if (!url || url === '') return;
         fetchData();
     }, [fetchData]);
 

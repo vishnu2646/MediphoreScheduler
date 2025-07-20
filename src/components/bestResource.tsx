@@ -19,7 +19,7 @@ const BestResource = ({ taskID }: {taskID: string}) => {
         return <p>Something gone wrong</p>
     }
 
-    if(typeof(resourceList.data) === 'string') {
+    if(typeof(resourceList.data) === 'string' || resourceList.data.length === 0) {
         return (
             <div className="p-4 rounded-lg border border-border/50 hover:bg-muted/50 transition-colors">
                 <div className="text-center py-8 text-muted-foreground">
