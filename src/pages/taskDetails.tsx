@@ -1,12 +1,12 @@
+import { useNavigate, useParams } from 'react-router-dom'
+import { useFetch } from '@/hooks/use-fetch';
 import { ArrowLeft, Calendar, CheckCircle, Circle, Clock, FileText, Tag, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useNavigate, useParams } from 'react-router-dom'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import BestResource from '@/components/bestResource';
-import ResourceSkillFilter from '../components/resourceSkillFilter';
-import { useFetch } from '@/hooks/useFetch';
+import ResourceSkillFilter from '@/components/resourceSkillFilter';
 
 interface ITaskDetail {
     data: {

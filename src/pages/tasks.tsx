@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Checkbox } from "@radix-ui/react-checkbox";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useQuery } from "@tanstack/react-query";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ITask, ITaskData } from "@/core/types/interfaces";
 import { Calendar, Clock, Filter, Plus, Search } from "lucide-react";
+import { useFetch } from "@/hooks/use-fetch";
 
 const Tasks = () => {
 
@@ -14,22 +15,17 @@ const Tasks = () => {
 
     const [searchParams] = useSearchParams();
 
+    const apiUrl = import.meta.env.VITE_API_URL;
+
     const projectParam = searchParams.get('project_id');
 
-    const { data, isLoading, error } = useQuery<ITask>({
-        queryKey: ['tasks'],
-        queryFn: async () => {
-            const response = await axios.get<ITask>(`http://localhost:8000/api/projects/${projectParam}/tasks`);
-            return response.data;
-        },
-        refetchOnWindowFocus: false,
-    });
+    const { data, loading, error } = useFetch<ITask>(`${apiUrl}/projects/${projectParam}/tasks`);
 
-    if(isLoading) {
+    if(loading) {
         return <p>Loading...</p>
     }
 
-    if(error instanceof Error) {
+    if(error) {
         return <p>Something gone wrong</p>
     }
 

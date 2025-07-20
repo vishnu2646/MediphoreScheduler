@@ -1,11 +1,13 @@
 import { Badge } from '@/components/ui/badge'
 import { IBestResource } from '@/core/types/interfaces';
-import { useFetch } from '@/hooks/useFetch';
+import { useFetch } from '@/hooks/use-fetch';
 import { Search } from 'lucide-react';
 
 const BestResource = ({ taskID }: {taskID: string}) => {
 
-    const { data, loading, error } = useFetch<IBestResource>(`http://localhost:8000/api/resources/search?task_id=${taskID}`)
+    const apiUrl = import.meta.env.VITE_API_URL;
+
+    const { data, loading, error } = useFetch<IBestResource>(`${apiUrl}/resources/search?task_id=${taskID}`)
 
     const resourceList = data;
 

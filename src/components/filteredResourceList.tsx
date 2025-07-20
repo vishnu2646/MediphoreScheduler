@@ -1,5 +1,5 @@
 import { ArrowRight, Search } from 'lucide-react';
-import { useFetch } from '@/hooks/useFetch';
+import { useFetch } from '@/hooks/use-fetch';
 
 interface IResource {
     data: {
@@ -17,9 +17,9 @@ const FilteredResourceList = (
     }: any
 ) => {
 
-    console.log(selectedSkill)
+    const apiUrl = import.meta.env.VITE_API_URL;
 
-    const { data, loading, error } = useFetch<IResource>(`http://localhost:8000/api/skills/${selectedSkill}/resources`)
+    const { data, loading, error } = useFetch<IResource>(`${apiUrl}/skills/${selectedSkill}/resources`)
 
     if(loading) {
         return <p>Loading...</p>;

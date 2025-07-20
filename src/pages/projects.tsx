@@ -1,15 +1,17 @@
+import { useNavigate } from 'react-router-dom';
+import { useFetch } from '@/hooks/use-fetch';
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { IProject } from "@/core/types/interfaces";
 import { Plus, Target, Calendar } from "lucide-react";
-import { useNavigate } from 'react-router-dom';
-import { useFetch } from '@/hooks/useFetch';
 
 const Index = () => {
     const navigate = useNavigate();
 
-    const { data, loading, error } = useFetch<IProject>('http://localhost:8000/api/projects')
+    const apiUrl = import.meta.env.VITE_API_URL;
+
+    const { data, loading, error } = useFetch<IProject>(`${apiUrl}/projects`)
 
     const projectsCount = data && data.data && data.data.length;
 

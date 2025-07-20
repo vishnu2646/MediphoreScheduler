@@ -5,7 +5,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import FilteredResourceList from './filteredResourceList';
-import { useFetch } from '@/hooks/useFetch';
+import { useFetch } from '@/hooks/use-fetch';
 
 const ResourceSkillFilter = () => {
 
@@ -13,7 +13,9 @@ const ResourceSkillFilter = () => {
 
     const [searchTerm, setSearchTerm] = useState("");
 
-    const { data, loading, error } = useFetch<ISkills>('http://localhost:8000/api/skills')
+    const apiUrl = import.meta.env.VITE_API_URL;
+
+    const { data, loading, error } = useFetch<ISkills>(`${apiUrl}/skills`)
 
     const skillsList = data?.data;
 
