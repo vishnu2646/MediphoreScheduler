@@ -7,6 +7,7 @@ import { ITask, ITaskData } from "@/core/types/interfaces";
 import { Calendar, Clock, Filter, Plus, Search } from "lucide-react";
 import { useFetch } from "@/hooks/use-fetch";
 import { usePost } from "@/hooks/use-post";
+import { useEffect, useState } from "react";
 
 const Tasks = () => {
 
@@ -17,6 +18,18 @@ const Tasks = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
 
     const projectParam = searchParams.get('project_id');
+
+    const [priority, setPriority] = useState('');
+
+    const randomPriority = () => {
+        const priorityArray = ['Low', 'Medium', 'High'];
+        const randomPriorityIndex = Math.floor(Math.random() * priorityArray.length);
+        setPriority(priorityArray[randomPriorityIndex]);
+    }
+
+    useEffect(() => {
+        randomPriority();
+    }, []);
 
     const { data, loading, error, refetch } = useFetch<ITask>(`${apiUrl}/tasks?project_id=${projectParam}`);
 
@@ -124,8 +137,8 @@ const Tasks = () => {
                                         >
                                             {task.title}
                                         </h4>
-                                        <Badge>
-                                            high
+                                        <Badge variant={priority === 'High' ? 'destructive' : priority === 'Medium' ? 'default' : 'success'}>
+                                            {priority}
                                         </Badge>
                                     </div>
                                     <div className="flex items-center gap-4 text-xs text-muted-foreground">
@@ -168,9 +181,9 @@ const Tasks = () => {
                             />
                             <div className="flex-1 space-y-2">
                                 <div className="flex items-center justify-between">
-                                    <h4 className="font-medium line-through">{task.title}</h4>
+                                    <h4 className="font-medium line-through hove:text-primary hover:cursor-pointer" onClick={() => handleRouteTaskDetail(task.id)}>{task.title}</h4>
                                     <Badge>
-                                        Low
+                                        {priority}
                                     </Badge>
                                 </div>
                                 <div className="flex items-center gap-4 text-xs text-muted-foreground">

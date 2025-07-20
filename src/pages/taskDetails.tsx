@@ -29,7 +29,7 @@ interface ITaskDetail {
         }
         title: string;
         description: string;
-        completed: boolean;
+        status: string;
         start_date: string;
         end_date: string;
     }
@@ -43,9 +43,11 @@ const TaskDetails = () => {
 
     const apiUrl = import.meta.env.VITE_API_URL;
 
-    const { data, loading, error, refetch } = useFetch<ITaskDetail>(`${apiUrl}/tasks/${id}`);
+    const { data, loading, error } = useFetch<ITaskDetail>(`${apiUrl}/tasks/${id}`);
 
     const taskDetail = data;
+
+    console.log(taskDetail, "details")
 
     const skillName = taskDetail?.data.skill.name;
 
@@ -83,6 +85,14 @@ const TaskDetails = () => {
         });
     }
 
+    const getVariant = (status: string) => {
+        switch (status.toLowerCase()) {
+            case 'completed': return "success";
+            case 'in progress': return "default";
+            default: return "secondary"
+        }
+    }
+
     return (
         <div className='p-4'>
             <div className="flex items-center gap-4">
@@ -110,13 +120,13 @@ const TaskDetails = () => {
                                     Task Details
                                 </CardTitle>
                                 <div className="flex items-center gap-2">
-                                    {taskDetail.data.completed ? (
+                                    {taskDetail.data.status === 'completed' ? (
                                         <CheckCircle className="h-5 w-5 text-success" />
                                     ) : (
                                         <Circle className="h-5 w-5 text-muted-foreground" />
                                     )}
-                                    <Badge variant={taskDetail.data.completed ? "default" : "secondary"}>
-                                        {taskDetail.data.completed ? "Completed" : "In Progress"}
+                                    <Badge className='capitalize' variant={getVariant(taskDetail.data.status)}>
+                                        {taskDetail.data.status}
                                     </Badge>
                                 </div>
                             </div>
