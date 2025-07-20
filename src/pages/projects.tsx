@@ -129,7 +129,7 @@ const Index = () => {
 
                             {/* Priority and Actions */}
                             <div className="flex items-center justify-between pt-2 border-t border-border/50">
-                                <Badge className={getStatusColor(project.status)}>
+                                <Badge className={`capitalize ${getStatusColor(project.status)}`}>
                                     {project.status}
                                 </Badge>
                                 <Button variant="outline" size="sm" onClick={() => handleViewTasks(project.id)}>

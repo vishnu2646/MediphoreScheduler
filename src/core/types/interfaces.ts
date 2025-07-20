@@ -11,9 +11,14 @@ export interface IProject {
 export interface ITaskData {
     id: number;
     title: string;
-    completed: boolean;
+    status: string;
     end_date: string;
+    start_date: string;
     project: {
+        id: number;
+        name: string;
+    };
+    skill: {
         id: number;
         name: string;
     }
@@ -26,15 +31,9 @@ export interface ITask {
 export interface IBestResource {
     data: {
         id: number;
-        resource: {
-            id: number;
-            name: string;
-            shortDescription: string;
-        },
-        skill: {
-            id: number;
-            name: string;
-        }
+        name: string;
+        short_description: string;
+        skills: string[]
     }[];
 }
 

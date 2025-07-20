@@ -1,13 +1,12 @@
-import axios from "axios";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useQuery } from "@tanstack/react-query";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ITask, ITaskData } from "@/core/types/interfaces";
 import { Calendar, Clock, Filter, Plus, Search } from "lucide-react";
 import { useFetch } from "@/hooks/use-fetch";
+import { usePost } from "@/hooks/use-post";
 
 const Tasks = () => {
 
@@ -19,7 +18,9 @@ const Tasks = () => {
 
     const projectParam = searchParams.get('project_id');
 
-    const { data, loading, error } = useFetch<ITask>(`${apiUrl}/projects/${projectParam}/tasks`);
+    const { data, loading, error, refetch } = useFetch<ITask>(`${apiUrl}/tasks?project_id=${projectParam}`);
+
+    const { data: postata, loading: postLoading, error: postError, post } = usePost();
 
     if(loading) {
         return <p>Loading...</p>
@@ -29,9 +30,20 @@ const Tasks = () => {
         return <p>Something gone wrong</p>
     }
 
-    const activeTasks = data && data.data && data.data.filter(task => task.completed === false);
+    const activeTasks = data && data.data && data.data.filter(task => task.status !== 'completed');
 
-    const completedTasks = data && data.data && data.data.filter(task => task.completed === true);
+    const completedTasks = data && data.data && data.data.filter(task => task.status === 'completed');
+
+    const handleCloseTask = async (task) => {
+        task.status = 'completed';
+
+        const response: any = await post(`http://localhost:8000/api/tasks/${task.id}`, task);
+
+        if(response.data){
+            refetch();
+            alert(response.data);
+        }
+    }
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString)
@@ -42,7 +54,7 @@ const Tasks = () => {
     };
 
     const getStatusColor = (task: ITaskData) => {
-        const status = task.completed === false ? 'In Progress' : 'Completed'
+        const status = task.status;
         switch (status.toLowerCase()) {
             case "completed": return "bg-green/10 text-white border-green/20"
             case "in progress": return "bg-primary/10 text-primary border-primary/20 hover:cursor-pointer"
@@ -101,7 +113,8 @@ const Tasks = () => {
                                 <div className="flex items-start gap-3">
                                 <Checkbox
                                     className="mt-1"
-                                    checked={task.completed}
+                                    checked={task.status === 'completed'}
+                                    onCheckedChange={() => handleCloseTask(task)}
                                 />
                                 <div className="flex-1 space-y-2">
                                     <div className="flex items-center justify-between">
@@ -120,8 +133,8 @@ const Tasks = () => {
                                             <Calendar className="h-3 w-3" />
                                             <span>Due {formatDate(task.end_date)}</span>
                                         </div>
-                                        <Badge variant="outline" className={getStatusColor(task)}>
-                                            {task.completed === false ? 'In Progress' : 'Completed'}
+                                        <Badge variant="outline" className={`capitalize ${getStatusColor(task)}`}>
+                                            {task.status}
                                         </Badge>
                                         <span className="text-primary">{task.project.name}</span>
                                     </div>
@@ -151,7 +164,7 @@ const Tasks = () => {
                             <div className="flex items-start gap-3">
                             <Checkbox
                                 className="mt-1"
-                                checked={task.completed}
+                                checked={task.status === 'completed'}
                             />
                             <div className="flex-1 space-y-2">
                                 <div className="flex items-center justify-between">
@@ -163,10 +176,10 @@ const Tasks = () => {
                                 <div className="flex items-center gap-4 text-xs text-muted-foreground">
                                     <div className="flex items-center gap-1">
                                         <Calendar className="h-3 w-3" />
-                                        <span>{task.completed && 'Completed'} {formatDate(task.end_date)}</span>
+                                        <span>{task.status && 'completed'} {formatDate(task.end_date)}</span>
                                     </div>
                                     <Badge variant="outline">
-                                        {task.completed && 'Completed'}
+                                        {task.status && 'completed'}
                                     </Badge>
                                     <span className="text-primary">{task.project.name}</span>
                                 </div>

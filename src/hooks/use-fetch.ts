@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios, { AxiosRequestConfig } from 'axios';
 
 interface FetchState<T> {
@@ -14,34 +14,24 @@ export function useFetch<T = any>(url: string, config?: AxiosRequestConfig) {
         error: null,
     });
 
+    const fetchData = useCallback(async () => {
+        setState({ data: null, loading: true, error: null });
+
+        try {
+            const response = await axios.get<T>(url, config);
+            setState({ data: response.data, loading: false, error: null });
+        } catch (err: any) {
+            setState({
+                data: null,
+                loading: false,
+                error: err?.message || 'Something went wrong',
+            });
+        }
+    }, [url, config]);
+
     useEffect(() => {
-        let cancelled = false;
-
-        const fetchData = async () => {
-            setState({ data: null, loading: true, error: null });
-
-            try {
-                const response = await axios.get<T>(url, config);
-                if (!cancelled) {
-                    setState({ data: response.data, loading: false, error: null });
-                }
-            } catch (err: any) {
-                if (!cancelled) {
-                    setState({
-                        data: null,
-                        loading: false,
-                        error: err?.message || 'Something went wrong',
-                });
-                }
-            }
-        };
-
         fetchData();
+    }, [fetchData]);
 
-        return () => {
-            cancelled = true;
-        };
-    }, [url]);
-
-    return state;
+    return { ...state, refetch: fetchData };
 }

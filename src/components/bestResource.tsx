@@ -1,7 +1,7 @@
 import { Badge } from '@/components/ui/badge'
 import { IBestResource } from '@/core/types/interfaces';
 import { useFetch } from '@/hooks/use-fetch';
-import { Search } from 'lucide-react';
+import { ArrowRight, Search } from 'lucide-react';
 
 const BestResource = ({ taskID }: {taskID: string}) => {
 
@@ -37,13 +37,16 @@ const BestResource = ({ taskID }: {taskID: string}) => {
                 <div key={resource.id} className="p-4 rounded-lg border border-border/50 hover:bg-muted/50 transition-colors">
                     <div className="flex items-start justify-between">
                         <div className="space-y-1">
-                            <h4 className="font-medium">{resource.resource?.name}</h4>
-                            <p className="text-sm text-muted-foreground">{resource.resource?.shortDescription}</p>
+                            <h4 className="font-medium">{resource.name}</h4>
+                            <p className="text-sm text-muted-foreground">{resource.short_description}</p>
                         </div>
-                        <Badge variant="outline">
-                            {resource.skill.name}
-                        </Badge>
+                        {resource.skills.map(skill => (
+                            <Badge variant="outline" className='mr-2' key={skill}>
+                                {skill}
+                            </Badge>
+                        ))}
                     </div>
+                    <p className='flex items-center gap-2 cursor-pointer text-xs justify-end'>More Details <ArrowRight className='h-3 w-3' /></p>
                 </div>
             ))}
         </>
