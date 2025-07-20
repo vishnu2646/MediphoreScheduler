@@ -82,10 +82,7 @@ const ResourceSkillFilter = () => {
                 </CardHeader>
                 <CardContent>
                     <FilteredResourceList
-                        searchTearm={searchTerm}
-                        setSearchTerm={setSearchTerm}
                         selectedSkill={selectedSkill}
-                        setSelectedSkill={setSelectedSkill}
                     />
                 </CardContent>
             </Card>

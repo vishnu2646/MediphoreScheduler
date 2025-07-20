@@ -17,10 +17,7 @@ interface IResource {
 
 const FilteredResourceList = (
     {
-        searchTerm,
-        setSearchTerm,
         selectedSkill,
-        setSelectedSkill
     }: any
 ) => {
 
