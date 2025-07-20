@@ -1,33 +1,13 @@
-# Welcome to your Lovable project
-
-## Project info
-
-**URL**: https://lovable.dev/projects/7a02d7d4-efda-4316-9eed-37050b8c9d93
-
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/7a02d7d4-efda-4316-9eed-37050b8c9d93) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+# Resource Management
 
 Follow these steps:
 
 ```sh
 # Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+git clone https://github.com/vishnu2646/MediphoreScheduler
 
 # Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+cd MediphoreScheduler
 
 # Step 3: Install the necessary dependencies.
 npm i
@@ -36,21 +16,10 @@ npm i
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Where can I find API?
+Backend Repository can be found [Repo Link](https://github.com/vishnu2646/MediPhoreSchedulerApi)
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
+## What Technologies are used for this project?
 
 This project is built with:
 
@@ -59,15 +28,23 @@ This project is built with:
 - React
 - shadcn-ui
 - Tailwind CSS
+- Django Rest Framework
+- Sqlite3
 
-## How can I deploy this project?
+## Screen Shots
 
-Simply open [Lovable](https://lovable.dev/projects/7a02d7d4-efda-4316-9eed-37050b8c9d93) and click on Share -> Publish.
+#### Projects List Screen
 
-## Can I connect a custom domain to my Lovable project?
+![Projects screen](image.png)
 
-Yes, you can!
+#### Task List Screen
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+![Task List](image-1.png)
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+#### Task Details Screen
+
+![Task Detail](<Task Details.png>)
+
+#### Best Matched Resource List
+
+![alt text](<Best Matched Resource.png>)

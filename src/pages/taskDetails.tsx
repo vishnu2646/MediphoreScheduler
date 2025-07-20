@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { useFetch } from '@/hooks/use-fetch';
-import { ArrowLeft, Calendar, CheckCircle, Circle, Clock, DotIcon, EllipsisIcon, EllipsisVerticalIcon, FileText, MenuIcon, Tag, User, UserCircle2Icon } from 'lucide-react';
+import { ArrowLeft, Calendar, CheckCircle, Circle, Clock, EllipsisIcon, FileText, Tag, User, UserCircle2Icon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -9,7 +9,7 @@ import BestResource from '@/components/bestResource';
 import ResourceSkillFilter from '@/components/resourceSkillFilter';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu';
-import { IResource, ISkills } from '@/core/types/interfaces';
+import { IResource } from '@/core/types/interfaces';
 import { usePost } from '@/hooks/use-post';
 
 interface ITaskDetail {
