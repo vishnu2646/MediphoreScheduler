@@ -49,13 +49,8 @@ const Tasks = () => {
 
     const handleCloseTask = async (task) => {
         task.status = 'completed';
-
-        const response: any = await post(`${apiUrl}/tasks/${task.id}`, task);
-
-        if(response.data){
-            refetch();
-            alert(response.data);
-        }
+        await post(`${apiUrl}/tasks/${task.id}`, task);
+        refetch();
     }
 
     const formatDate = (dateString: string) => {
